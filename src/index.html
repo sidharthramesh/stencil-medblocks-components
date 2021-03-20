@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+  <title>Stencil Component Starter</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+  <script type="module" src="/build/sl-test.esm.js"></script>
+  <script nomodule src="/build/sl-test.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <mb-template :mbdata.prop="composition" @mbchange="handleInput">
+      <mb-number-w path="hello">
+        <input type="number" name="" id="">
+      </mb-number-w>
+      <mb-number-w path="hello/123">
+        <input type="number" name="" id="">
+      </mb-number-w>
+      <mb-number-custom path="werwoer"></mb-number-custom>
+      <div class="section">
+        <div class="columns">
+          <div class="column is-half">
+            <div class="field" v-for="path in paths" :key="path">
+              <label for="" class="label">Path #{{path}}</label>
+              <mb-text-w :path="path">
+                <p>Hello there</p>
+                <input type="text" class="input">
+              </mb-text-w>
+            </div>
+            <div class="buttons">
+              <button class="button" @click="addMore">Add more</button>
+              <button class="button" @click="remove">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mb-template>
+
+
+    <pre>{{composition}}</pre>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script>
+    Vue.config.ignoredElements = [/mb-\w*/];
+    store = {}
+    var app = new Vue({
+      el: "#app",
+      data: {
+        store: {},
+        composition: {},
+        paths: ["1", "2", "3"]
+      },
+      methods: {
+        handleInput(e) {
+          this.composition = e.detail
+        },
+        log(data) {
+          console.log({ newData: data.detail });
+        },
+        addMore() {
+          this.paths = [...this.paths, (this.paths.length + 1).toString()]
+        },
+        remove() {
+          this.paths = this.paths.slice(0, -1)
+        }
+      },
+      mounted() {
+      }
+
+    });
+  </script>
+</body>
+
+</html>
